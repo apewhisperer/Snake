@@ -114,6 +114,7 @@ public class SnakePanel extends JPanel implements Runnable {
                 treats.removeIf(p -> p.equals(head));
                 addTreat();
                 health = 70;
+                counter = 1;
             }
         }
         if (!isGameOver()) {
