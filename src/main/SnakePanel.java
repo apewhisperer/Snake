@@ -98,6 +98,7 @@ public class SnakePanel extends JPanel implements Runnable {
     }
 
     public void drawGameScreen() {
+
         this.removeAll();
         this.setPreferredSize(new Dimension(600, 620));
         this.setBackground(Color.BLACK);
