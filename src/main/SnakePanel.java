@@ -33,7 +33,7 @@ public class SnakePanel extends JPanel implements Runnable {
             i.put(KeyStroke.getKeyStroke("DOWN"), "down");
             i.put(KeyStroke.getKeyStroke("LEFT"), "left");
             i.put(KeyStroke.getKeyStroke("RIGHT"), "right");
-            i.put(KeyStroke.getKeyStroke("control A"), "grid");
+            i.put(KeyStroke.getKeyStroke("control G"), "grid");
         }
         this.getActionMap().put("up", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
@@ -94,6 +94,7 @@ public class SnakePanel extends JPanel implements Runnable {
         counter = 0;
         do {
             addTreat();
+            addTreat();
         } while (treats.isEmpty());
     }
 
@@ -125,9 +126,19 @@ public class SnakePanel extends JPanel implements Runnable {
     }
 
     public void drawSnake(Graphics2D g) {
-        g.setColor(Color.GREEN);
         for (Point p : snake) {
+            if (health < 10) {
+                g.setColor(Color.RED);
+            } else if (health < 20) {
+                g.setColor(new Color(255, 144, 0));
+            } else if (health < 30) {
+                g.setColor(Color.YELLOW);
+            } else {
+                g.setColor(Color.GREEN);
+            }
             g.fillRect(p.x, p.y, 20, 20);
+            g.setColor(Color.BLACK);
+            g.drawRect(p.x, p.y, 20, 20);
         }
     }
 
@@ -147,16 +158,25 @@ public class SnakePanel extends JPanel implements Runnable {
     public void drawTreats(Graphics2D g) {
 
         if (counter % 50 == 0) {
-
             if (treats.size() > 1) {
                 grid[treats.get(0).x / 20][treats.get(0).y / 20] = 0;
                 treats.remove(0);
+                addTreat();
             }
-            addTreat();
         }
-        g.setColor(Color.RED);
         for (Point p : treats) {
+            g.setColor(Color.RED);
             g.fillRect(p.x, p.y, 20, 20);
+            g.setColor(Color.BLACK);
+            g.drawRect(p.x, p.y, 20, 20);
+            g.fillRect(p.x + 8, p.y, 4, 4);
+        }
+        for (Point p : treats) {
+            Graphics2D gg = (Graphics2D) g.create();
+            gg.setColor(new Color(0, 130, 0));
+            gg.rotate(180, p.x + 14, p.y -3);
+            gg.fillOval(p.x + 12, p.y -6, 5, 9);
+            gg.dispose();
         }
         counter++;
     }
@@ -258,7 +278,7 @@ public class SnakePanel extends JPanel implements Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(150);
+                Thread.sleep(120);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
