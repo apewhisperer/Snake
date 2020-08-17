@@ -238,6 +238,7 @@ public class SnakePanel extends JPanel implements Runnable {
                 gameLoop.interrupt();
                 reset();
                 drawGameScreen();
+                repaint();
             }
         });
         mainPanel.add(retry, JLayeredPane.PALETTE_LAYER);
@@ -255,6 +256,7 @@ public class SnakePanel extends JPanel implements Runnable {
                 gameLoop.interrupt();
                 reset();
                 drawGameScreen();
+                repaint();
             }
         });
     }
