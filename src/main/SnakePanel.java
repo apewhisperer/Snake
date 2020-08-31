@@ -113,7 +113,8 @@ public class SnakePanel extends JPanel implements Runnable {
                 snake.remove(0);
                 health--;
             } else if (grid[head.x / 20][head.y / 20] == 2){
-                treats.removeIf(p -> p.equals(head));
+//                treats.removeIf(p -> p.equals(head));
+                treats.remove(new Point(head.x, head.y));
                 addTreat();
                 health = 70;
                 counter = 1;
@@ -158,7 +159,7 @@ public class SnakePanel extends JPanel implements Runnable {
     public void drawTreats(Graphics2D g) {
 
         if (counter % 50 == 0) {
-            if (treats.size() > 1) {
+            if (treats.size() >= 2) {
                 grid[treats.get(0).x / 20][treats.get(0).y / 20] = 0;
                 treats.remove(0);
                 addTreat();
