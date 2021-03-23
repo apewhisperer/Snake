@@ -112,7 +112,7 @@ public class SnakePanel extends JPanel implements Runnable {
                 grid[snake.get(0).x / 20][snake.get(0).y / 20] = 0;
                 snake.remove(0);
                 health--;
-            } else if (grid[head.x / 20][head.y / 20] == 2){
+            } else if (grid[head.x / 20][head.y / 20] == 2) {
 //                treats.removeIf(p -> p.equals(head));
                 treats.remove(new Point(head.x, head.y));
                 addTreat();
@@ -158,12 +158,10 @@ public class SnakePanel extends JPanel implements Runnable {
 
     public void drawTreats(Graphics2D g) {
 
-        if (counter % 50 == 0) {
-            if (treats.size() >= 2) {
-                grid[treats.get(0).x / 20][treats.get(0).y / 20] = 0;
-                treats.remove(0);
-                addTreat();
-            }
+        if (counter % 50 == 0 && treats.size() >= 2) {
+            grid[treats.get(0).x / 20][treats.get(0).y / 20] = 0;
+            treats.remove(0);
+            addTreat();
         }
         for (Point p : treats) {
             g.setColor(Color.RED);
@@ -175,8 +173,8 @@ public class SnakePanel extends JPanel implements Runnable {
         for (Point p : treats) {
             Graphics2D gg = (Graphics2D) g.create();
             gg.setColor(new Color(0, 130, 0));
-            gg.rotate(180, p.x + 14, p.y -3);
-            gg.fillOval(p.x + 12, p.y -6, 5, 9);
+            gg.rotate(180, p.x + 14, p.y - 3);
+            gg.fillOval(p.x + 12, p.y - 6, 5, 9);
             gg.dispose();
         }
         counter++;
